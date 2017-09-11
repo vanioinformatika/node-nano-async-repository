@@ -107,7 +107,7 @@ export class CouchdbRepository<D> {
     public async update(document: D & Document): Promise<D & Document>
     public async update(id: string, document: D): Promise<D & Document>
     public async update(arg1: any, arg2?: D & MaybeDocument): Promise<D & Document> {
-        const document = !arg2 && isDocument(arg1) ? arg1 : arg2
+        const document: D & MaybeDocument = !arg2 && isDocument<D>(arg1) ? arg1 : arg2
         const id = arg2 ? arg1 : document._id
         invariant(document, "\"document\" attribute is required")
 
