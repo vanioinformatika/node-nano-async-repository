@@ -1,0 +1,1 @@
+{"version":3,"file":"DocumentAlreadyExistsError.js","sourceRoot":"","sources":["../../../src/error/DocumentAlreadyExistsError.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qDAAoD;AAEpD;IAAgD,8CAAe;IAC3D,oCAAY,EAAU;eAClB,kBAAM,kCAAgC,EAAE,MAAG,CAAC;IAChD,CAAC;IACL,iCAAC;AAAD,CAAC,AAJD,CAAgD,iCAAe,GAI9D;AAJY,gEAA0B"}

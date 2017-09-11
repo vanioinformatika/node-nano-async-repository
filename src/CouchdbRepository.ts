@@ -2,9 +2,9 @@ import invariant = require("invariant");
 
 import { Document, DocumentScopeAsync, MaybeDocument, MaybeIdentifiedDocument } from "nano-async";
 
-import { DocumentAlreadyExistsError } from "./DocumentAlreadyExistsError";
-import { DocumentConcurrentModificationError } from "./DocumentConcurrentModificationError";
-import { DocumentNotFoundError } from "./DocumentNotFoundError";
+import { DocumentAlreadyExistsError } from "./error/DocumentAlreadyExistsError";
+import { DocumentConcurrentModificationError } from "./error/DocumentConcurrentModificationError";
+import { DocumentNotFoundError } from "./error/DocumentNotFoundError";
 
 import { isDocument } from "./util";
 
