@@ -23,7 +23,7 @@
         "node": ">6.9"
     },
     "scripts": {
-        "changelog:bump": "cross-env-shell sed -i '7a # $npm_package_version\\n' ./CHANGELOG.md",
+        "changelog:bump": "cross-var sed -i \"7a # $npm_package_version\\n\" ./CHANGELOG.md",
         "compile": "tsc",
         "coverage": "nyc npm run test",
         "coverage:ci": "npm run coverage && nyc report --reporter=text-lcov | coveralls",
@@ -45,7 +45,7 @@
         "@types/chai": "^4.0.4",
         "@types/mocha": "^2.2.42",
         "chai": "^4.1.2",
-        "cross-env": "^5.0.5",
+        "cross-var": "^1.0.3",
         "mocha": "^3.5.0",
         "nyc": "^11.2.1",
         "ts-node": "^3.3.0",
