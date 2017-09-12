@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var CouchdbRepository_1 = require("./src/CouchdbRepository");
 exports.CouchdbRepository = CouchdbRepository_1.CouchdbRepository;
 var RepositoryError_1 = require("./src/error/RepositoryError");

@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 function isIdentifiedDocument(document) {
     return document.hasOwnProperty("_id") && typeof document._id === "string";
 }

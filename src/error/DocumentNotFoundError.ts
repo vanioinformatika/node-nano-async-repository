@@ -1,7 +1,8 @@
 import { RepositoryError } from "./RepositoryError";
 
 export class DocumentNotFoundError extends RepositoryError {
-    constructor(id: string) {
+
+    constructor(public readonly id: string) {
         super(`Document not found (id: ${id})`);
     }
 }

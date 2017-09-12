@@ -1,7 +1,8 @@
 import { RepositoryError } from "./RepositoryError";
 
 export class DocumentAlreadyExistsError extends RepositoryError {
-    constructor(id: string) {
+
+    constructor(public readonly id: string) {
         super(`Document already exists (id: ${id})`);
     }
 }
