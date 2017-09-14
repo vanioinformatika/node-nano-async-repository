@@ -67,7 +67,7 @@ export class CouchdbRepository<D> {
      * List every document stored in database
      */
     public async all(): Promise<Array<D & Document>> {
-        const [listResponse] = await this.database.listAsync();
+        const [listResponse] = await this.database.listAsync({include_docs: true});
         return listResponse.rows.map((row) => row.doc);
     }
 

@@ -1,4 +1,12 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const invariant = require("invariant");
 const DocumentAlreadyExistsError_1 = require("./error/DocumentAlreadyExistsError");
@@ -49,76 +57,88 @@ class CouchdbRepository {
     /**
      * List every document stored in database
      */
-    async all() {
-        const [listResponse] = await this.database.listAsync();
-        return listResponse.rows.map((row) => row.doc);
+    all() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const [listResponse] = yield this.database.listAsync();
+            return listResponse.rows.map((row) => row.doc);
+        });
     }
     /**
      * Finds a single document in the database
      */
-    async find(id) {
-        invariant(id, "\"id\" attribute is required");
-        const [doc] = await this.database.getAsync(id).catch((error) => {
-            throw (error.statusCode === 404 ? new DocumentNotFoundError_1.DocumentNotFoundError(id) : error);
+    find(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            invariant(id, "\"id\" attribute is required");
+            const [doc] = yield this.database.getAsync(id).catch((error) => {
+                throw (error.statusCode === 404 ? new DocumentNotFoundError_1.DocumentNotFoundError(id) : error);
+            });
+            return doc;
         });
-        return doc;
     }
-    async insert(arg1, arg2) {
-        const document = arg2 || arg1;
-        const id = arg2 ? arg1 : document._id;
-        invariant(document, `"document" attribute is required`);
-        const [response] = await this.database.insertAsync(document, id).catch((error) => {
-            throw (error.statusCode === 409 ? new DocumentAlreadyExistsError_1.DocumentAlreadyExistsError(id) : error);
+    insert(arg1, arg2) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const document = arg2 || arg1;
+            const id = arg2 ? arg1 : document._id;
+            invariant(document, `"document" attribute is required`);
+            const [response] = yield this.database.insertAsync(document, id).catch((error) => {
+                throw (error.statusCode === 409 ? new DocumentAlreadyExistsError_1.DocumentAlreadyExistsError(id) : error);
+            });
+            return Object.assign({}, document, { _id: response.id, _rev: response.rev });
         });
-        return Object.assign({}, document, { _id: response.id, _rev: response.rev });
     }
-    async update(arg1, arg2) {
-        const document = !arg2 && util_1.isDocument(arg1) ? arg1 : arg2;
-        const id = arg2 ? arg1 : document._id;
-        invariant(document, "\"document\" attribute is required");
-        const dbDocument = await this.find(id);
-        // TODO rewrite to object spread when https://github.com/Microsoft/TypeScript/pull/13288 is merged
-        /* tslint:disable-next-line:prefer-object-spread */
-        const revisionedDocument = Object.assign({ _id: dbDocument._id, _rev: dbDocument._rev }, document);
-        const [response] = await this.database.insertAsync(revisionedDocument, id)
-            .catch((error) => {
-            throw (error.statusCode === 409 ? new DocumentConcurrentModificationError_1.DocumentConcurrentModificationError(id) : error);
+    update(arg1, arg2) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const document = !arg2 && util_1.isDocument(arg1) ? arg1 : arg2;
+            const id = arg2 ? arg1 : document._id;
+            invariant(document, "\"document\" attribute is required");
+            const dbDocument = yield this.find(id);
+            // TODO rewrite to object spread when https://github.com/Microsoft/TypeScript/pull/13288 is merged
+            /* tslint:disable-next-line:prefer-object-spread */
+            const revisionedDocument = Object.assign({ _id: dbDocument._id, _rev: dbDocument._rev }, document);
+            const [response] = yield this.database.insertAsync(revisionedDocument, id)
+                .catch((error) => {
+                throw (error.statusCode === 409 ? new DocumentConcurrentModificationError_1.DocumentConcurrentModificationError(id) : error);
+            });
+            // TODO rewrite to object spread when https://github.com/Microsoft/TypeScript/pull/13288 is merged
+            /* tslint:disable-next-line:prefer-object-spread */
+            return Object.assign(revisionedDocument, { _rev: response.rev });
         });
-        // TODO rewrite to object spread when https://github.com/Microsoft/TypeScript/pull/13288 is merged
-        /* tslint:disable-next-line:prefer-object-spread */
-        return Object.assign(revisionedDocument, { _rev: response.rev });
     }
-    async patch(arg1, arg2) {
-        const document = !arg2 && util_1.isDocument(arg1) ? arg1 : arg2;
-        const id = arg2 ? arg1 : document._id;
-        invariant(document, "\"document\" attribute is required");
-        const dbDocument = await this.find(id);
-        // TODO rewrite to object spread when https://github.com/Microsoft/TypeScript/pull/13288 is merged
-        /* tslint:disable-next-line:prefer-object-spread */
-        const revisionedDocument = Object.assign(dbDocument, document);
-        const [response] = await this.database.insertAsync(revisionedDocument, id)
-            .catch((error) => {
-            switch (error.statusCode) {
-                case 409:
-                    throw new DocumentConcurrentModificationError_1.DocumentConcurrentModificationError(id);
-                case 404:
-                    throw new DocumentNotFoundError_1.DocumentNotFoundError(id);
-                default:
-                    throw error;
-            }
+    patch(arg1, arg2) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const document = !arg2 && util_1.isDocument(arg1) ? arg1 : arg2;
+            const id = arg2 ? arg1 : document._id;
+            invariant(document, "\"document\" attribute is required");
+            const dbDocument = yield this.find(id);
+            // TODO rewrite to object spread when https://github.com/Microsoft/TypeScript/pull/13288 is merged
+            /* tslint:disable-next-line:prefer-object-spread */
+            const revisionedDocument = Object.assign(dbDocument, document);
+            const [response] = yield this.database.insertAsync(revisionedDocument, id)
+                .catch((error) => {
+                switch (error.statusCode) {
+                    case 409:
+                        throw new DocumentConcurrentModificationError_1.DocumentConcurrentModificationError(id);
+                    case 404:
+                        throw new DocumentNotFoundError_1.DocumentNotFoundError(id);
+                    default:
+                        throw error;
+                }
+            });
+            // TODO rewrite to object spread when https://github.com/Microsoft/TypeScript/pull/13288 is merged
+            /* tslint:disable-next-line:prefer-object-spread */
+            return Object.assign(revisionedDocument, { _rev: response.rev });
         });
-        // TODO rewrite to object spread when https://github.com/Microsoft/TypeScript/pull/13288 is merged
-        /* tslint:disable-next-line:prefer-object-spread */
-        return Object.assign(revisionedDocument, { _rev: response.rev });
     }
     /**
      * Delete single document from database
      */
-    async destroy(id, rev) {
-        invariant(id, "\"id\" attribute is required");
-        invariant(rev, "\"rev\" attribute is required");
-        const [response] = await this.database.destroyAsync(id, rev);
-        return response.ok;
+    destroy(id, rev) {
+        return __awaiter(this, void 0, void 0, function* () {
+            invariant(id, "\"id\" attribute is required");
+            invariant(rev, "\"rev\" attribute is required");
+            const [response] = yield this.database.destroyAsync(id, rev);
+            return response.ok;
+        });
     }
 }
 exports.CouchdbRepository = CouchdbRepository;
