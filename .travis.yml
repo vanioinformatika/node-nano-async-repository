@@ -1,13 +1,17 @@
+sudo: required
+
 language: node_js
 node_js:
-  - '6'
   - 'node'
+  - '8'
+
+services:
+  - docker
+
 script: npm test
-env:
-  - CXX=g++-4.8
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
+
+jobs:
+  include:
+    - stage: code quality
+      script: npm run coverage:ci
+    - script: npm run lint
