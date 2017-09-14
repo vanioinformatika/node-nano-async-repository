@@ -1,0 +1,7 @@
+version: '3'
+services:
+
+    couchdb:
+        image: klaemo/couchdb:2.0.0
+        ports:
+            - "5984:5984"
