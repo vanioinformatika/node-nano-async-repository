@@ -59,7 +59,7 @@ class CouchdbRepository {
      */
     all() {
         return __awaiter(this, void 0, void 0, function* () {
-            const [listResponse] = yield this.database.listAsync();
+            const [listResponse] = yield this.database.listAsync({ include_docs: true });
             return listResponse.rows.map((row) => row.doc);
         });
     }

@@ -1,0 +1,1 @@
+{"version":3,"file":"DocumentConcurrentModificationError.js","sourceRoot":"","sources":["../../src/error/DocumentConcurrentModificationError.ts"],"names":[],"mappings":";;AAAA,uDAAoD;AAEpD,yCAAiD,SAAQ,iCAAe;IAEpE,YAA4B,EAAU;QAClC,KAAK,CAAC,kCAAkC,EAAE,GAAG,CAAC,CAAC;QADvB,OAAE,GAAF,EAAE,CAAQ;IAEtC,CAAC;CACJ;AALD,kFAKC"}

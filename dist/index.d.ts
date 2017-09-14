@@ -1,6 +1,6 @@
-export { CouchdbRepository } from "./src/CouchdbRepository";
-export { RepositoryError } from "./src/error/RepositoryError";
-export { DocumentAlreadyExistsError } from "./src/error/DocumentAlreadyExistsError";
-export { DocumentNotFoundError } from "./src/error/DocumentNotFoundError";
-export { DocumentConcurrentModificationError } from "./src/error/DocumentConcurrentModificationError";
-export { isDocument, isIdentifiedDocument, isRevisionedDocument } from "./src/util";
+export { CouchdbRepository } from "./CouchdbRepository";
+export { RepositoryError } from "./error/RepositoryError";
+export { DocumentAlreadyExistsError } from "./error/DocumentAlreadyExistsError";
+export { DocumentNotFoundError } from "./error/DocumentNotFoundError";
+export { DocumentConcurrentModificationError } from "./error/DocumentConcurrentModificationError";
+export { isDocument, isIdentifiedDocument, isRevisionedDocument } from "./util";
